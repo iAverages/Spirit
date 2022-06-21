@@ -1,0 +1,13 @@
+plugins {
+    id "java"
+}
+
+group "com.danielraybone.spirit"
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation("com.influxdb:influxdb-client-java:6.1.0")
+}
