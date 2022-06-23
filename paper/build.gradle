@@ -1,0 +1,30 @@
+plugins {
+    id "java"
+    id "com.github.johnrengelman.shadow" version "7.1.2"
+}
+
+group "com.danielraybone.spirit"
+
+repositories {
+    mavenCentral()
+    maven {
+        name = "papermc-repo"
+        url = "https://repo.papermc.io/repository/maven-public/"
+    }
+}
+
+shadowJar {
+    archiveBaseName.set("Spirit-Paper")
+    archiveClassifier.set("")
+}
+
+dependencies {
+    implementation project(":common")
+    compileOnly "io.papermc.paper:paper-api:1.19-R0.1-SNAPSHOT"
+}
+
+processResources {
+    filesMatching("plugin.yml") {
+        expand "pluginVersion": version
+    }
+}
