@@ -34,6 +34,8 @@ public class SpiritPaper extends JavaPlugin implements SpiritPlugin {
         this.common = new SpiritCommon(this, url, token, org, bucket);
         this.common.influx.connect();
 
+        EventManager eventManager = new EventManager(this);
+        Bukkit.getPluginManager().registerEvents(eventManager, this);
     }
 
 
