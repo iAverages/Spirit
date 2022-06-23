@@ -5,7 +5,7 @@ public class SpiritCommon {
 
     public final InfluxDB influx;
 
-    public SpiritCommon(String url, String token, String org, String bucket) {
-        this.influx = new InfluxDB(url, token, org, bucket);
+    public SpiritCommon(SpiritPlugin plugin, String url, String token, String org, String bucket) {
+        this.influx = new InfluxDB(plugin, url, token, org, bucket);
     }
 }

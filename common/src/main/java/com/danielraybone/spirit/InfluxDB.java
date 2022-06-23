@@ -7,14 +7,17 @@ import com.influxdb.client.WriteApi;
 
 public class InfluxDB {
 
+    private final SpiritPlugin plugin;
     public final String url;
     public final String token;
+    
     public final String org;
     public final String bucket;
     public InfluxDBClient client;
     public WriteApi writeApi;
 
-    public InfluxDB(String url, String token, String org, String bucket) {
+    public InfluxDB(SpiritPlugin plugin, String url, String token, String org, String bucket) {
+        this.plugin = plugin;
         this.url = url;
         this.token = token;
         this.org = org;
@@ -31,14 +34,14 @@ public class InfluxDB {
 
     public void connect(LogLevel logLevel, boolean gzip) {
         if (this.client != null) {
-
+            this.plugin.getSpiritLogger().warn("Tried to connect to InfluxDB, connection is already setup.");
             return;
         }
 
-        InfluxDBClient client = InfluxDBClientFactory.create(url, token.toCharArray(), org, bucket);
+        this.client = InfluxDBClientFactory.create(url, token.toCharArray(), org, bucket);
 
-        if (gzip) client.enableGzip();
-        client.setLogLevel(logLevel);
+        if (gzip) this.client.enableGzip();
+        this.client.setLogLevel(logLevel);
 
         this.writeApi = this.client.makeWriteApi();
     }
@@ -47,8 +50,7 @@ public class InfluxDB {
         this.client.close();
     }
 
-
     public void addEventLog(SpiritEvent event) {
-        writeApi.writePoint(event.toPoint().toInfluxPoint());
+        this.writeApi.writePoint(event.toPoint().toInfluxPoint());
     }
 }
