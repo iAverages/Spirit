@@ -1,4 +1,5 @@
 rootProject.name = "Spirit"
 include "common"
 include "paper"
+include "velocity"
 

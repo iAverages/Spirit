@@ -1,0 +1,39 @@
+plugins {
+    id "java"
+    id "com.github.johnrengelman.shadow" version "7.1.2"
+}
+
+group "com.danielraybone.spirit"
+
+repositories {
+    mavenCentral()
+    maven {
+        name = "velocitypowered-repo"
+        url = "https://repo.papermc.io/repository/maven-public/"
+    }
+}
+
+shadowJar {
+    archiveBaseName.set("Spirit-Velocity")
+    archiveClassifier.set("")
+}
+
+dependencies {
+    implementation project(":common")
+    compileOnly "com.velocitypowered:velocity-api:3.1.0"
+    compileOnly 'org.projectlombok:lombok:1.18.24'
+
+    annotationProcessor "org.projectlombok:lombok:1.18.24"
+    annotationProcessor "com.velocitypowered:velocity-api:3.0.1"
+}
+
+import org.apache.tools.ant.filters.ReplaceTokens
+
+task processSources(type: Sync) {
+    from sourceSets.main.java.srcDirs
+    inputs.property 'version', version
+    filter ReplaceTokens, tokens: [version: version]
+    into "$buildDir/src"
+}
+
+compileJava.source = processSources.outputs
