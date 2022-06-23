@@ -5,7 +5,6 @@ import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.YamlConfiguration;
 
 import java.io.File;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -25,18 +24,8 @@ public class PaperConfigAdapter implements ConfigAdapter {
     }
 
     @Override
-    public String getString(String path) {
-        return this.getString(path, "");
-    }
-
-    @Override
     public String getString(String path, String def) {
         return this.configuration.getString(path, def);
-    }
-
-    @Override
-    public int getInteger(String path) {
-        return this.getInteger(path, 0);
     }
 
     @Override
@@ -45,29 +34,14 @@ public class PaperConfigAdapter implements ConfigAdapter {
     }
 
     @Override
-    public boolean getBoolean(String path) {
-        return this.getBoolean(path, false);
-    }
-
-    @Override
     public boolean getBoolean(String path, boolean def) {
         return this.configuration.getBoolean(path, def);
-    }
-
-    @Override
-    public List<String> getStringList(String path) {
-        return this.getStringList(path, new ArrayList<>());
     }
 
     @Override
     public List<String> getStringList(String path, List<String> def) {
         List<String> list = this.configuration.getStringList(path);
         return this.configuration.isSet(path) ? list : def;
-    }
-
-    @Override
-    public Map<String, String> getStringMap(String path) {
-        return this.getStringMap(path, new HashMap<>());
     }
 
     @Override
