@@ -4,4 +4,5 @@ author: dan
 api-version: "1.19"
 description: Spirit Event Logger
 main: com.danielraybone.spirit.SpiritPaper
+website: "https://github.com/iAverages/Spirit"
 softdepend: [ ]
