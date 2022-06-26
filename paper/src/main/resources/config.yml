@@ -1,6 +1,0 @@
-influx:
-    host: ""
-    token: ""
-    org: ""
-    bucket: ""
-    debug: ""

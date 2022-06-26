@@ -1,0 +1,9 @@
+name: ""
+influx:
+    host: ""
+    token: ""
+    org: ""
+    bucket: ""
+    debug: ""
+    # Set of default tags to apply to every data point
+    tags: [ ]
