@@ -3,6 +3,7 @@ package com.danielraybone.spirit;
 import com.influxdb.LogLevel;
 import com.influxdb.client.InfluxDBClient;
 import com.influxdb.client.InfluxDBClientFactory;
+import com.influxdb.client.InfluxDBClientOptions;
 import com.influxdb.client.WriteApi;
 
 public class InfluxDB {
@@ -10,7 +11,6 @@ public class InfluxDB {
     private final SpiritPlugin plugin;
     public final String url;
     public final String token;
-    
     public final String org;
     public final String bucket;
     public InfluxDBClient client;
@@ -38,7 +38,16 @@ public class InfluxDB {
             return;
         }
 
-        this.client = InfluxDBClientFactory.create(url, token.toCharArray(), org, bucket);
+        InfluxDBClientOptions.Builder builder = InfluxDBClientOptions.builder()
+                .url(url)
+                .authenticateToken(token.toCharArray())
+                .bucket(bucket)
+                .org(org);
+
+        builder.addDefaultTag("server", this.plugin.getSpiritConfig().getString("server-name", "unnamed server"));
+
+        InfluxDBClientOptions options = builder.build();
+        this.client = InfluxDBClientFactory.create(options);
 
         if (gzip) this.client.enableGzip();
         this.client.setLogLevel(logLevel);

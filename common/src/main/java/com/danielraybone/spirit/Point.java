@@ -7,7 +7,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Helper class so influx DB is not needed to be added to very project
+ * Helper class so influx DB is not needed to be added to every project
  */
 public class Point {
 
@@ -56,7 +56,6 @@ public class Point {
                 .measurement(this.measurementName)
                 .addTags(this.tags)
                 .addFields(this.fields)
-                .addTag("server", "local")
                 .time(this.time, WritePrecision.MS);
     }
 }
