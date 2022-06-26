@@ -1,7 +1,7 @@
 name: Spirit
 version: ${pluginVersion}
 author: dan
-api-version: "1.19"
+api-version: "1.16"
 description: Spirit Event Logger
 main: com.danielraybone.spirit.SpiritPaper
 website: "https://github.com/iAverages/Spirit"
